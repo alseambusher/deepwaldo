@@ -24,7 +24,7 @@ with tf.Session() as session:
     session.run(tf.local_variables_initializer())
     session.run(tf.global_variables_initializer())
     coord = tf.train.Coordinator()
-    tf.train.start_queue_runners(sess=session, coord=coord)
+    threads = tf.train.start_queue_runners(sess=session, coord=coord)
     for step in range(config.n_epochs):
         images, labels = session.run([train_images_batch, train_labels_batch])
         session.run(optimizer, feed_dict={images_tf: images,
@@ -37,8 +37,16 @@ with tf.Session() as session:
                                                                  keep_prob: 1})
             print("Step " + str(step) + ", Loss=",
                   loss, ", Training Accuracy=", acc)
-    print("Optimization Finished!")
+    print("Optimization Finished!")    
 
-    print("Testing Accuracy:",
-          session.run(accuracy, feed_dict={images_tf: np.array(list(map(lambda x: waldoNN.load_image(x), test_images))),
-                                            labels_tf: test_labels,
+    acc, pred = session.run([accuracy, prediction], feed_dict={images_tf: np.array(list(map(lambda x: waldoNN.load_image(x), test_images))),
+                                        labels_tf: test_labels,
+                                        keep_prob: 1.0})
+    print("Testing accuracy", acc)
+
+
+    coord.request_stop()
+    coord.join(threads)
+    session.close()
+
+

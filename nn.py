@@ -75,13 +75,22 @@ class WaldoNN:
             waldo_list = np.array(list(map(lambda x: [os.path.join(config.data_folder, "waldo", x), 1], os.listdir(config.data_folder + "/waldo"))))
             not_waldo_list = np.array(list(map(lambda x: [os.path.join(config.data_folder, "notwaldo", x), 0], os.listdir(config.data_folder + "/notwaldo"))))
 
-            data = np.concatenate([waldo_list, not_waldo_list])
-            np.random.shuffle(data)
-            train, test = data[:int(data.shape[0]*config.train_split), :], data[int(data.shape[0]*config.train_split):, :]
+            waldo_list = np.concatenate([waldo_list, waldo_list, waldo_list, waldo_list, waldo_list, waldo_list, waldo_list, waldo_list, waldo_list, waldo_list])
+            
+            np.random.shuffle(waldo_list)
+            np.random.shuffle(not_waldo_list)
+
+            train1, test1 = waldo_list[:int(waldo_list.shape[0]*config.train_split), :], waldo_list[int(waldo_list.shape[0]*config.train_split):, :]
+            train2, test2 = not_waldo_list[:int(not_waldo_list.shape[0]*config.train_split), :], not_waldo_list[int(not_waldo_list.shape[0]*config.train_split):, :]
+
+            train = np.concatenate([train1, train2])
+            np.random.shuffle(train)
+            test = np.concatenate([test1, test2])
+            np.random.shuffle(train)
 
             np.save(config.trainset_path, train)
             np.save(config.testset_path, test)
-            return train[:100], test
+            return train, test
         else:
             return np.load(config.trainset_path + ".npy"), np.load(config.testset_path + ".npy")
 
