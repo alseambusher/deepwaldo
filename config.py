@@ -5,7 +5,7 @@ n_epochs = 50
 learning_rate = 0.001
 dropout = 0.5
 display_step = 5
-batch_size = 32
+batch_size = 128
 
 trainset_path = models_path + '/train'
 testset_path = models_path + '/test'
