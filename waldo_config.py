@@ -11,3 +11,8 @@ class Waldoconfig(Config):
     COCO_WEIGHTS_PATH = os.path.join("models", "mask_rcnn_coco.h5")
     MODEL_DIR = os.path.join("models", "logs")
     DATA_DIR = "data"
+
+    def __init__(self, predict=False):
+        if predict:
+            self.IMAGES_PER_GPU = 1
+            self.GPU_COUNT = 1
