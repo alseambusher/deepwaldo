@@ -17,7 +17,7 @@ You can either set your configurations in the [waldo_config.py](waldo_config.py)
 
 This will download the Mask-RCNN model trained on coco dataset to the MODEL_DIR folder and trains a model with the data in the DATA_DIR folder.
 
-```python
+```bash
 
 python train.py
 
@@ -28,6 +28,9 @@ python train.py
 Shows a popup with the waldo detected in the image.
 
 
-```python
-python predict.py [PATH TO IMAGE]
+```bash
+python predict.py [MODEL PATH] [PATH TO IMAGE]
+# for example
+python predict.py models/logs/waldo20180612T1628/mask_rcnn_waldo_0030.h5 data/val/5.jpg
+
 ```

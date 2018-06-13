@@ -5,7 +5,7 @@ from mrcnn.model import MaskRCNN
 from waldo_config import Waldoconfig
 import numpy as np
 import skimage.draw
-from skimage.viewer import ImageViewer
+from PIL import Image
 
 if __name__ == '__main__':
 
@@ -15,11 +15,12 @@ if __name__ == '__main__':
     model = MaskRCNN(mode="inference", config=config,
                      model_dir=config.MODEL_DIR)
 
-    weights_path = model.find_last()[1]
+    weights_path = sys.argv[1]
+
     print("weights_path: ", weights_path)
     model.load_weights(weights_path, by_name=True)
 
-    image = skimage.io.imread(sys.argv[1])
+    image = skimage.io.imread(sys.argv[2])
     masks = model.detect([image], verbose=1)[0]["masks"]
 
     print("Masks:", masks)
@@ -29,7 +30,7 @@ if __name__ == '__main__':
 
     if mask_filter.shape[0] > 0:
         waldo = np.where(mask_filter, image, gray).astype(np.uint8)
-        viewer = ImageViewer(waldo)
-        viewer.show()
+        img = Image.fromarray(waldo, 'RGB')
+        img.show()
     else:
         print("Can't find Waldo. Hmm..")

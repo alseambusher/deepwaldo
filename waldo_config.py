@@ -16,3 +16,4 @@ class Waldoconfig(Config):
         if predict:
             self.IMAGES_PER_GPU = 1
             self.GPU_COUNT = 1
+        super(self.__class__, self).__init__();
