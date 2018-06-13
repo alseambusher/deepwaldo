@@ -2,7 +2,7 @@ Deepwaldo
 =========
 
 Using [Mask-RCNN](https://github.com/matterport/Mask_RCNN) to solve Where's Waldo. Refer [this](https://lifepluslinux.blogspot.com) for detailed description of the problem and the solution.
-
+![](data/val/5.jpg)
 ![](results/5.png)
 
 ## Data
