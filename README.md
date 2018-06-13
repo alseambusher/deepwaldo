@@ -2,6 +2,9 @@ Deepwaldo
 =========
 
 Using [Mask-RCNN](https://github.com/matterport/Mask_RCNN) to solve Where's Waldo. Refer [this](https://lifepluslinux.blogspot.com) for detailed description of the problem and the solution.
+
+Some results
+
 ![](data/val/5.jpg)
 ![](results/5.png)
 
@@ -34,3 +37,4 @@ python predict.py [MODEL PATH] [PATH TO IMAGE]
 python predict.py models/logs/waldo20180612T1628/mask_rcnn_waldo_0030.h5 data/val/5.jpg
 
 ```
+ 
